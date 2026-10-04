@@ -18,6 +18,7 @@ import dev.kdroid.musicradio.domain.Stations
 import dev.kdroid.musicradio.domain.UiLanguage
 import dev.kdroid.musicradio.domain.wakeChannelIdOrNull
 import dev.kdroid.musicradio.player.MediaSessionRadioPlayer
+import io.github.santimattius.structured.annotations.StructuredScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -37,6 +38,7 @@ import kotlinx.coroutines.launch
  */
 internal class WakeListenerService : Service() {
 
+    @StructuredScope
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private var player: MediaSessionRadioPlayer? = null
     private var lastStartedAt = 0L
