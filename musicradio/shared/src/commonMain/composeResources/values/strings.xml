@@ -58,8 +58,8 @@
     <string name="startup_off">Nothing</string>
     <string name="startup_last">Last station</string>
     <string name="startup_chosen">Chosen station</string>
-    <string name="settings_wake">Play on wake</string>
-    <string name="settings_wake_desc">Start a station whenever the device wakes from sleep. Keeps a small notification running.</string>
+    <string name="settings_wake">Play on wake and startup</string>
+    <string name="settings_wake_desc">Start a station whenever the device wakes from sleep or starts up, and open the app. Keeps a small notification running.</string>
     <string name="picker_none">Not chosen</string>
     <string name="picker_choose">Choose a station</string>
     <string name="picker_choose_channel">Choose a channel</string>

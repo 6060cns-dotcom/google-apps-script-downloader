@@ -58,8 +58,8 @@
     <string name="startup_off">כלום</string>
     <string name="startup_last">התחנה האחרונה</string>
     <string name="startup_chosen">תחנה שבחרתי</string>
-    <string name="settings_wake">הפעלה בהתעוררות</string>
-    <string name="settings_wake_desc">הדלקת תחנה בכל פעם שהמכשיר מתעורר ממצב שינה. מחייב התראה קטנה קבועה.</string>
+    <string name="settings_wake">הפעלה בהתעוררות ובאתחול</string>
+    <string name="settings_wake_desc">הדלקת תחנה בכל פעם שהמכשיר מתעורר ממצב שינה או נדלק, ופתיחת האפליקציה. מחייב התראה קטנה קבועה.</string>
     <string name="picker_none">לא נבחרה</string>
     <string name="picker_choose">בחירת תחנה</string>
     <string name="picker_choose_channel">בחירת ערוץ</string>

@@ -58,8 +58,8 @@
     <string name="startup_off">Rien</string>
     <string name="startup_last">Dernière station</string>
     <string name="startup_chosen">Station choisie</string>
-    <string name="settings_wake">Lecture au réveil</string>
-    <string name="settings_wake_desc">Lance une station chaque fois que l\'appareil sort de veille. Garde une petite notification active.</string>
+    <string name="settings_wake">Lecture au réveil et au démarrage</string>
+    <string name="settings_wake_desc">Lance une station chaque fois que l\'appareil sort de veille ou démarre, et ouvre l\'application. Garde une petite notification active.</string>
     <string name="picker_none">Aucune</string>
     <string name="picker_choose">Choisir une station</string>
     <string name="picker_choose_channel">Choisir un canal</string>

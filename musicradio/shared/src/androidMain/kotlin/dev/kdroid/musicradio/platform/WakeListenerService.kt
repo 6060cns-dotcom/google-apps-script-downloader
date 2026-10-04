@@ -25,6 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -38,12 +39,14 @@ import kotlinx.coroutines.launch
  * uses to play the stream, so the lock screen and the notification behave exactly as they do when
  * the user presses play in the app.
  */
+internal const val EXTRA_FROM_BOOT = "fromBoot"
+
 internal class WakeListenerService : Service() {
 
     @StructuredScope
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private var player: MediaSessionRadioPlayer? = null
-    private var lastStartedAt = 0L
+    private var lastStartedAt = -DEBOUNCE_MS
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -73,7 +76,24 @@ internal class WakeListenerService : Service() {
             stopSelf()
             return START_NOT_STICKY
         }
+        if (intent?.getBooleanExtra(EXTRA_FROM_BOOT, false) == true) {
+            scope.launch { startAfterBoot() }
+        }
         return START_STICKY
+    }
+
+    /**
+     * A phone that has just booted has no network for a few seconds, and a stream opened before
+     * that fails. So wait a moment, then start, and look again a few times: a station that did not
+     * take is started once more rather than left spinning.
+     */
+    private suspend fun startAfterBoot() {
+        delay(BOOT_DELAY_MS)
+        repeat(BOOT_ATTEMPTS) {
+            onWake()
+            delay(BOOT_RETRY_MS)
+            if (player?.status?.value?.active == true) return
+        }
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -157,18 +177,33 @@ internal class WakeListenerService : Service() {
         const val CHANNEL_ID = "wake_listener"
         const val NOTIFICATION_ID = 2
         const val DEBOUNCE_MS = 10_000L
+        const val BOOT_DELAY_MS = 8_000L
+        const val BOOT_RETRY_MS = 12_000L
+        const val BOOT_ATTEMPTS = 4
     }
 }
 
 /**
- * Brings the wake listener back after a reboot or an app update, both of which stop it. Does
- * nothing unless the setting is on.
+ * After a reboot, starts the chosen station and opens the app, as if the device had just woken; after
+ * an app update it only puts the wake listener back. Does nothing unless the setting is on.
  */
 internal class WakeBootReceiver : BroadcastReceiver() {
+    private companion object {
+        // The two QUICKBOOT actions are what several phone makers send instead of the standard one.
+        val BOOT_ACTIONS = setOf(
+            Intent.ACTION_BOOT_COMPLETED,
+            "android.intent.action.QUICKBOOT_POWERON",
+            "com.htc.intent.action.QUICKBOOT_POWERON",
+        )
+    }
+
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action != Intent.ACTION_BOOT_COMPLETED && intent.action != Intent.ACTION_MY_PACKAGE_REPLACED) return
+        val booted = intent.action in BOOT_ACTIONS
+        if (!booted && intent.action != Intent.ACTION_MY_PACKAGE_REPLACED) return
         bindAndroidContext(context)
         if (FileStore().load().wakeChannelIdOrNull() == null) return
-        runCatching { context.startForegroundService(Intent(context, WakeListenerService::class.java)) }
+        // Only a real boot plays; an app update just puts the listener back.
+        val start = Intent(context, WakeListenerService::class.java).putExtra(EXTRA_FROM_BOOT, booted)
+        runCatching { context.startForegroundService(start) }
     }
 }
