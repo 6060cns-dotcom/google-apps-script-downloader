@@ -13,6 +13,8 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import android.os.SystemClock
+import android.provider.Settings
+import android.util.Log
 import dev.kdroid.musicradio.data.FileStore
 import dev.kdroid.musicradio.domain.Stations
 import dev.kdroid.musicradio.domain.UiLanguage
@@ -85,6 +87,10 @@ internal class WakeListenerService : Service() {
     }
 
     private fun onWake() {
+        runCatching { handleWake() }.onFailure { Log.e(TAG, "wake start failed", it) }
+    }
+
+    private fun handleWake() {
         val now = SystemClock.elapsedRealtime()
         // The screen can flicker on twice in a row; one start is enough.
         if (now - lastStartedAt < DEBOUNCE_MS) return
@@ -104,6 +110,18 @@ internal class WakeListenerService : Service() {
         }
         // So that "continue with the last station" on the next launch means this one.
         FileStore().save(data.copy(lastChannel = channelId))
+        openApp()
+    }
+
+    /**
+     * Brings the app to the front as well. Android blocks activities started from the background
+     * unless the user has granted "display over other apps", so without that permission the radio
+     * still plays and the screen is simply left as it is.
+     */
+    private fun openApp() {
+        if (!Settings.canDrawOverlays(this)) return
+        val launch = packageManager.getLaunchIntentForPackage(packageName) ?: return
+        runCatching { startActivity(launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
     }
 
     private fun showNotification(language: UiLanguage) {
@@ -135,6 +153,7 @@ internal class WakeListenerService : Service() {
     }
 
     private companion object {
+        const val TAG = "MusicRadioWake"
         const val CHANNEL_ID = "wake_listener"
         const val NOTIFICATION_ID = 2
         const val DEBOUNCE_MS = 10_000L

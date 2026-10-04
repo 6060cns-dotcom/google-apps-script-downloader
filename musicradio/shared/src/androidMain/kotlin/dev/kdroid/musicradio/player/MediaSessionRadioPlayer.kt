@@ -36,8 +36,12 @@ internal class MediaSessionRadioPlayer(context: Context) : RadioPlayer {
 
     private var controller: MediaController? = null
 
-    /** Commands issued before the service connection completes, replayed once it does. */
-    private var queued: ((MediaController) -> Unit)? = null
+    /**
+     * Commands issued before the service connection completes, replayed in order once it does.
+     * A list, not a single slot: a lone slot let the track-title update that follows every
+     * `play()` overwrite it, so a station started right at launch never actually began.
+     */
+    private val queued = mutableListOf<(MediaController) -> Unit>()
     private var volume: Float = 1f
     private var released = false
 
@@ -68,8 +72,8 @@ internal class MediaSessionRadioPlayer(context: Context) : RadioPlayer {
                 connected.addListener(listener)
                 connected.volume = volume
                 controller = connected
-                queued?.invoke(connected)
-                queued = null
+                queued.forEach { it(connected) }
+                queued.clear()
                 publish()
             },
             mainExecutor,
@@ -172,7 +176,7 @@ internal class MediaSessionRadioPlayer(context: Context) : RadioPlayer {
     private fun onController(block: (MediaController) -> Unit) {
         main.post {
             val connected = controller
-            if (connected == null) queued = block else block(connected)
+            if (connected == null) queued += block else block(connected)
         }
     }
 
