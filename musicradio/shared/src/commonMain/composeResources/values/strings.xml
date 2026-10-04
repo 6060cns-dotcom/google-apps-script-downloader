@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Music Radio</string>
+    <string name="app_tagline">Jewish radio, streaming straight to your desk and your pocket.</string>
+
+    <!-- Navigation -->
+    <string name="nav_stations">Stations</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_about">About</string>
+
+    <!-- Player -->
+    <string name="player_play">Play</string>
+    <string name="player_pause">Pause</string>
+    <string name="player_stop">Stop</string>
+    <string name="player_next">Next station</string>
+    <string name="player_previous">Previous station</string>
+    <string name="player_mute">Mute</string>
+    <string name="player_unmute">Unmute</string>
+    <string name="player_volume">Volume</string>
+    <string name="player_back">Back</string>
+    <string name="player_channel">Channel</string>
+    <string name="player_nothing">Pick a station to start listening</string>
+    <string name="player_buffering">Buffering…</string>
+    <string name="player_live">Live</string>
+    <string name="player_paused">Paused</string>
+
+    <!-- Stations -->
+    <string name="stations_search">Search stations</string>
+    <string name="view_stations">Group by station</string>
+    <string name="view_streams">Every stream separately</string>
+    <string name="stations_empty">No station matches your search</string>
+    <string name="stations_count">%1$d stations</string>
+    <string name="category_all">All</string>
+    <string name="category_music">Music</string>
+    <string name="category_torah">Torah</string>
+    <string name="category_news">News</string>
+
+    <!-- Favorites -->
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
+    <string name="favorites_empty">No favorites yet. Star a station to keep it here.</string>
+
+    <!-- Settings -->
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">Follow the system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_accent">Accent colour</string>
+    <string name="settings_language">Interface language</string>
+    <string name="language_system">Follow the system</string>
+    <string name="settings_playback">Playback</string>
+    <string name="settings_show_news">Show news stations</string>
+    <string name="settings_show_news_desc">Hide talk and news channels to keep the list to music and Torah.</string>
+    <string name="settings_startup">On launch</string>
+    <string name="settings_startup_desc">What plays by itself the moment the app opens.</string>
+    <string name="startup_off">Nothing</string>
+    <string name="startup_last">Last station</string>
+    <string name="startup_chosen">Chosen station</string>
+    <string name="settings_wake">Play on wake</string>
+    <string name="settings_wake_desc">Start a station whenever the device wakes from sleep. Keeps a small notification running.</string>
+    <string name="picker_none">Not chosen</string>
+    <string name="picker_choose">Choose a station</string>
+    <string name="picker_choose_channel">Choose a channel</string>
+    <string name="picker_back">Back to stations</string>
+    <string name="settings_data">Data</string>
+    <string name="settings_reset">Reset the app</string>
+    <string name="settings_reset_desc">Clear favorites and every setting, back to a first launch.</string>
+    <string name="settings_reset_confirm">Reset every setting and drop all favorites?</string>
+
+    <!-- About -->
+    <string name="about_version">Version %1$s</string>
+    <string name="about_licenses">Open-source licenses</string>
+    <string name="about_credit">Built by %1$s</string>
+    <string name="about_repo">Source on %1$s</string>
+    <string name="about_original">Rewritten from %1$s by %2$s.</string>
+
+    <!-- Dialogs and messages -->
+    <string name="dialog_confirm">Confirm</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_dismiss">Dismiss</string>
+    <string name="error_stream">This stream could not be read.</string>
+    <string name="message_reset_done">Every setting has been reset.</string>
+
+    <!-- Station names -->
+    <string name="station_beshiour_hay">Beshiour Hay</string>
+    <string name="station_kol_hahalakha">Kol HaHalakha</string>
+    <string name="station_kol_barama">Kol Barama</string>
+    <string name="station_kol_hay">Kol Hay</string>
+    <string name="station_kol_play">Kol Play</string>
+    <string name="station_kol_hay_music">Kol Hay Music</string>
+    <string name="station_yiddish24">Yiddish 24</string>
+    <string name="station_jewish_radio_network">Jewish Radio Network</string>
+    <string name="station_jewish_music_stream">Jewish Music Stream</string>
+    <string name="station_kol_simha">Kol Simha</string>
+    <string name="station_makelet_shira">Shira Choir 24</string>
+    <string name="station_toker_fm">Toker FM</string>
+    <string name="station_chabad_org">Chabad.org Melodies</string>
+    <string name="station_lakewood_scoop">The Lakewood Scoop</string>
+    <string name="update_available">A new version is ready to install</string>
+    <string name="update_restart_title">Restart to update</string>
+    <string name="update_restart_body">The update has been downloaded. Music Radio will restart to install it, and playback will stop for a moment. You can also just close the app - it installs on the way out.</string>
+    <string name="update_restart_now">Restart now</string>
+</resources>

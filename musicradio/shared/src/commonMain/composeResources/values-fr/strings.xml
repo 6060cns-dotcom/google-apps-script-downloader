@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Music Radio</string>
+    <string name="app_tagline">La radio juive en direct, sur le bureau comme dans la poche.</string>
+
+    <!-- Navigation -->
+    <string name="nav_stations">Stations</string>
+    <string name="nav_favorites">Favoris</string>
+    <string name="nav_settings">Réglages</string>
+    <string name="nav_about">À propos</string>
+
+    <!-- Player -->
+    <string name="player_play">Lecture</string>
+    <string name="player_pause">Pause</string>
+    <string name="player_stop">Arrêter</string>
+    <string name="player_next">Station suivante</string>
+    <string name="player_previous">Station précédente</string>
+    <string name="player_mute">Couper le son</string>
+    <string name="player_unmute">Rétablir le son</string>
+    <string name="player_volume">Volume</string>
+    <string name="player_back">Retour</string>
+    <string name="player_channel">Canal</string>
+    <string name="player_nothing">Choisissez une station pour commencer</string>
+    <string name="player_buffering">Mise en mémoire tampon…</string>
+    <string name="player_live">En direct</string>
+    <string name="player_paused">En pause</string>
+
+    <!-- Stations -->
+    <string name="stations_search">Rechercher une station</string>
+    <string name="view_stations">Grouper par station</string>
+    <string name="view_streams">Chaque flux séparément</string>
+    <string name="stations_empty">Aucune station ne correspond à la recherche</string>
+    <string name="stations_count">%1$d stations</string>
+    <string name="category_all">Toutes</string>
+    <string name="category_music">Musique</string>
+    <string name="category_torah">Torah</string>
+    <string name="category_news">Actualités</string>
+
+    <!-- Favorites -->
+    <string name="favorite_add">Ajouter aux favoris</string>
+    <string name="favorite_remove">Retirer des favoris</string>
+    <string name="favorites_empty">Aucun favori. Ajoutez une étoile à une station pour la garder ici.</string>
+
+    <!-- Settings -->
+    <string name="settings_appearance">Apparence</string>
+    <string name="settings_theme">Thème</string>
+    <string name="theme_system">Suivre le système</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="settings_accent">Couleur d\'accent</string>
+    <string name="settings_language">Langue de l\'interface</string>
+    <string name="language_system">Suivre le système</string>
+    <string name="settings_playback">Lecture</string>
+    <string name="settings_show_news">Afficher les stations d\'actualités</string>
+    <string name="settings_show_news_desc">Masquer les chaînes de parole et d\'actualités pour ne garder que musique et Torah.</string>
+    <string name="settings_startup">À l\'ouverture</string>
+    <string name="settings_startup_desc">Ce qui démarre tout seul dès que l\'application s\'ouvre.</string>
+    <string name="startup_off">Rien</string>
+    <string name="startup_last">Dernière station</string>
+    <string name="startup_chosen">Station choisie</string>
+    <string name="settings_wake">Lecture au réveil</string>
+    <string name="settings_wake_desc">Lance une station chaque fois que l\'appareil sort de veille. Garde une petite notification active.</string>
+    <string name="picker_none">Aucune</string>
+    <string name="picker_choose">Choisir une station</string>
+    <string name="picker_choose_channel">Choisir un canal</string>
+    <string name="picker_back">Retour aux stations</string>
+    <string name="settings_data">Données</string>
+    <string name="settings_reset">Réinitialiser l\'application</string>
+    <string name="settings_reset_desc">Effacer les favoris et tous les réglages, comme au premier lancement.</string>
+    <string name="settings_reset_confirm">Réinitialiser tous les réglages et supprimer les favoris ?</string>
+
+    <!-- About -->
+    <string name="about_version">Version %1$s</string>
+    <string name="about_licenses">Licences open source</string>
+    <string name="about_credit">Développé par %1$s</string>
+    <string name="about_repo">Code source sur %1$s</string>
+    <string name="about_original">Réécrit à partir de %1$s, par %2$s.</string>
+
+    <!-- Dialogs and messages -->
+    <string name="dialog_confirm">Confirmer</string>
+    <string name="dialog_cancel">Annuler</string>
+    <string name="dialog_dismiss">Fermer</string>
+    <string name="error_stream">Erreur lors de la lecture du flux : le contenu ne peut pas être chargé.</string>
+    <string name="message_reset_done">Tous les réglages ont été réinitialisés.</string>
+
+    <!-- Station names -->
+    <string name="station_beshiour_hay">Beshiour Hay</string>
+    <string name="station_kol_hahalakha">Kol HaHalakha</string>
+    <string name="station_kol_barama">Kol Barama</string>
+    <string name="station_kol_hay">Kol Hay</string>
+    <string name="station_kol_play">Kol Play</string>
+    <string name="station_kol_hay_music">Kol Hay Music</string>
+    <string name="station_yiddish24">Yiddish 24</string>
+    <string name="station_jewish_radio_network">Jewish Radio Network</string>
+    <string name="station_jewish_music_stream">Jewish Music Stream</string>
+    <string name="station_kol_simha">Kol Simha</string>
+    <string name="station_makelet_shira">Shira Choir 24</string>
+    <string name="station_toker_fm">Toker FM</string>
+    <string name="station_chabad_org">Mélodies Chabad.org</string>
+    <string name="station_lakewood_scoop">The Lakewood Scoop</string>
+    <string name="update_available">Une nouvelle version est prête à installer</string>
+    <string name="update_restart_title">Redémarrer pour mettre à jour</string>
+    <string name="update_restart_body">La mise à jour a été téléchargée. Music Radio va redémarrer pour l'installer, et la lecture s'interrompra un instant. Vous pouvez aussi simplement fermer l'application : elle s'installe à la fermeture.</string>
+    <string name="update_restart_now">Redémarrer</string>
+</resources>

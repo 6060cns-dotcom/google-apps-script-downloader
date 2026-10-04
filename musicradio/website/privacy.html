@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>מיוזיק רדיו | מדיניות פרטיות</title>
+<meta name="description" content="מדיניות הפרטיות של מיוזיק רדיו - האפליקציה לא אוספת מידע אישי, לא דורשת חשבון ולא כוללת פרסומות." />
+<link rel="icon" href="AppIcon.png" />
+
+<style>
+  :root {
+    /* Same tokens as index.html, kept in step with it by hand. */
+    --brand-900: #1b2050;
+    --brand-700: #333d9e;
+    --brand-500: #4c5bd4;
+    --brand-300: #9aa3ee;
+
+    --paper: #f2f2f8;
+    --paper-soft: #fbfbfe;
+    --ink: #1a1c33;
+    --ink-soft: #5a5f7d;
+
+    --card: rgba(255, 255, 255, 0.74);
+    --card-border: rgba(76, 91, 212, 0.20);
+    --shadow-sm: 0 4px 14px rgba(27, 32, 80, 0.10);
+    --radius-lg: 18px;
+
+    --font: "Segoe UI Variable", "Segoe UI", "Assistant", "Rubik",
+            system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #101227;
+      --paper-soft: #171a35;
+      --ink: #eceefb;
+      --ink-soft: #a8adcf;
+      --card: rgba(26, 30, 62, 0.66);
+      --card-border: rgba(107, 120, 224, 0.26);
+      --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.32);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 32px 20px 64px;
+  }
+
+  main { max-width: 760px; margin: 0 auto; }
+
+  h1 {
+    font-size: clamp(26px, 5vw, 34px);
+    color: var(--brand-700);
+    margin: 0 0 6px;
+  }
+
+  h2 {
+    font-size: 20px;
+    color: var(--brand-700);
+    margin: 32px 0 8px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    h1, h2 { color: var(--brand-300); }
+  }
+
+  .updated { color: var(--ink-soft); font-size: 14px; margin: 0 0 28px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+
+  .lede { font-size: 18px; }
+
+  ul { padding-inline-start: 22px; margin: 8px 0; }
+  li { margin: 4px 0; }
+
+  a { color: var(--brand-500); }
+  @media (prefers-color-scheme: dark) { a { color: var(--brand-300); } }
+
+  code {
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 0.9em;
+    background: var(--paper-soft);
+    padding: 1px 5px;
+    border-radius: 5px;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--card-border);
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  .en { direction: ltr; text-align: left; }
+</style>
+</head>
+<body>
+<main>
+
+  <h1>מדיניות פרטיות - מיוזיק רדיו</h1>
+  <p class="updated">עדכון אחרון: 20 באוגוסט 2026</p>
+
+  <div class="card">
+    <p class="lede">
+      <strong>מיוזיק רדיו לא אוספת עליך מידע אישי.</strong>
+      אין צורך בחשבון, אין הרשמה, אין פרסומות, אין כלי אנליטיקה ואין דיווח קריסות.
+      האפליקציה לא שולחת שום מידע לשרתים שלנו - למעשה אין לנו שרתים כלל.
+    </p>
+  </div>
+
+  <h2>מה נשמר במכשיר שלך</h2>
+  <p>
+    ההעדפות שלך נשמרות מקומית במכשיר בלבד ואינן עוזבות אותו: התחנות והערוצים שסימנת
+    כמועדפים, התחנה האחרונה שנוגנה, עוצמת השמע, שפת הממשק וערכת הצבעים.
+    מחיקת האפליקציה מוחקת אותם.
+  </p>
+
+  <h2>הרשאות</h2>
+  <p>באנדרואיד האפליקציה מבקשת שתי הרשאות בלבד:</p>
+  <ul>
+    <li><code>INTERNET</code> - כדי להזרים את שידורי הרדיו.</li>
+    <li><code>ACCESS_NETWORK_STATE</code> - כדי לזהות שאין חיבור ולהציג הודעה מתאימה.</li>
+  </ul>
+  <p>
+    האפליקציה לא מבקשת גישה למיקום, לאנשי קשר, למצלמה, למיקרופון, לקבצים או לכל מידע אישי אחר.
+  </p>
+
+  <h2>חיבור לתחנות הרדיו</h2>
+  <p>
+    כשאתה מנגן תחנה, המכשיר שלך מתחבר ישירות לשרת השידור של אותה תחנה - למשל
+    קול חי מיוזיק, קול פליי או אידיש 24. החיבור הזה הוא בינך לבין השדרן, ואנחנו לא
+    מתווכים בו ולא רואים אותו.
+  </p>
+  <p>
+    כמו בכל גלישה באינטרנט, שרת השידור עשוי לרשום את כתובת ה-IP שלך ואת סוג
+    המכשיר, בהתאם למדיניות שלו. האפליקציה גם מבקשת מהשרת את שם השיר המתנגן,
+    באותו חיבור ובאותו אופן. השימוש שהשדרנים עושים במידע הזה כפוף למדיניות הפרטיות
+    שלהם ולא לזו שלנו.
+  </p>
+
+  <h2>ילדים</h2>
+  <p>
+    האפליקציה אינה מיועדת במיוחד לילדים, ואינה אוספת מידע מאף משתמש - לרבות ילדים.
+  </p>
+
+  <h2>שיתוף ומכירה של מידע</h2>
+  <p>
+    אין מידע לשתף. איננו אוספים, מוכרים, משתפים או מעבירים מידע אישי לצד שלישי.
+  </p>
+
+  <h2>שינויים במדיניות</h2>
+  <p>
+    אם המדיניות תשתנה, הגרסה המעודכנת תפורסם בעמוד הזה עם תאריך עדכון חדש.
+  </p>
+
+  <h2>יצירת קשר</h2>
+  <p>
+    לשאלות בנוגע למדיניות הפרטיות:
+    <a href="mailto:cs@abaye.co">cs@abaye.co</a>
+  </p>
+  <p>
+    קוד המקור של האפליקציה פתוח וניתן לבדיקה:
+    <a href="https://github.com/abaye123/MusicRadio">github.com/abaye123/MusicRadio</a>
+  </p>
+
+  <div class="card en" lang="en">
+    <h2 style="margin-top:0">Privacy Policy - Music Radio (English summary)</h2>
+    <p>
+      <strong>Music Radio collects no personal data.</strong> There is no account, no sign-up,
+      no advertising, no analytics and no crash reporting. The app sends nothing to us - we run
+      no servers.
+    </p>
+    <p>
+      Your preferences (favourite stations and channels, last played station, volume, interface
+      language and theme) are stored locally on your device only and are deleted with the app.
+    </p>
+    <p>
+      On Android the app requests only <code>INTERNET</code> and <code>ACCESS_NETWORK_STATE</code>.
+      It requests no access to location, contacts, camera, microphone, files or any other personal
+      information.
+    </p>
+    <p>
+      When you play a station, your device connects directly to that broadcaster's streaming
+      server. As with any internet request, that server may log your IP address and device type
+      under its own policy. The app asks the same server for the currently playing track title over
+      the same connection. What broadcasters do with that is governed by their privacy policies,
+      not ours.
+    </p>
+    <p>
+      The app is not directed to children, and collects no data from any user.
+    </p>
+    <p>
+      Questions: <a href="mailto:cs@abaye.co">cs@abaye.co</a> ·
+      Source code: <a href="https://github.com/abaye123/MusicRadio">github.com/abaye123/MusicRadio</a>
+    </p>
+  </div>
+
+  <footer>
+    <a href="./">חזרה לעמוד ההורדה</a>
+  </footer>
+
+</main>
+</body>
+</html>
