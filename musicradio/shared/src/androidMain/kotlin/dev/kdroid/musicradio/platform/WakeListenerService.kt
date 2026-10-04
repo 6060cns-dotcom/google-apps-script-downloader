@@ -77,13 +77,15 @@ internal class WakeListenerService : Service() {
             return START_NOT_STICKY
         }
         if (intent?.getBooleanExtra(EXTRA_FROM_BOOT, false) == true) {
+            // The screen comes first: opening the app needs no network, so it does not wait for it.
+            openApp()
             scope.launch { startAfterBoot() }
         }
         return START_STICKY
     }
 
     /**
-     * A phone that has just booted has no network for a few seconds, and a stream opened before
+     * A device that has just booted has no network for a few seconds, and a stream opened before
      * that fails. So wait a moment, then start, and look again a few times: a station that did not
      * take is started once more rather than left spinning.
      */
@@ -177,7 +179,7 @@ internal class WakeListenerService : Service() {
         const val CHANNEL_ID = "wake_listener"
         const val NOTIFICATION_ID = 2
         const val DEBOUNCE_MS = 10_000L
-        const val BOOT_DELAY_MS = 8_000L
+        const val BOOT_DELAY_MS = 3_000L
         const val BOOT_RETRY_MS = 12_000L
         const val BOOT_ATTEMPTS = 4
     }
