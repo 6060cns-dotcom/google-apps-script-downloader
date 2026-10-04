@@ -64,6 +64,8 @@
     <string name="picker_choose">Choisir une station</string>
     <string name="picker_choose_channel">Choisir un canal</string>
     <string name="picker_back">Retour aux stations</string>
+    <string name="wake_log">Journal de réveil</string>
+    <string name="wake_log_empty">Rien d\'enregistré. Éteignez et rallumez l\'écran, ou redémarrez l\'appareil.</string>
     <string name="settings_data">Données</string>
     <string name="settings_reset">Réinitialiser l\'application</string>
     <string name="settings_reset_desc">Effacer les favoris et tous les réglages, comme au premier lancement.</string>

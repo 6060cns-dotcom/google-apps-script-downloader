@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- Lets the wake listener bring the app to the front from the background. -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application>
         <!-- Declared here rather than in androidApp because the service class lives in this
@@ -42,6 +43,10 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="autochips.intent.action.QB_POWERON" />
+                <action android:name="com.microntek.bootcheck" />
+                <action android:name="android.intent.action.ACC_ON" />
+                <action android:name="com.cayboy.action.ACC_ON" />
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>

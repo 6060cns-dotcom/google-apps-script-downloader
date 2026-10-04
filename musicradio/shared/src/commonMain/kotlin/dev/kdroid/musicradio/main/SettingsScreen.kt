@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
@@ -30,6 +31,7 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,11 +48,13 @@ import dev.kdroid.musicradio.domain.StartupPlay
 import dev.kdroid.musicradio.domain.Stations
 import dev.kdroid.musicradio.domain.ThemeMode
 import dev.kdroid.musicradio.domain.UiLanguage
+import dev.kdroid.musicradio.platform.wakeEventLog
 import dev.kdroid.musicradio.platform.wakeListenerSupported
 import dev.kdroid.musicradio.ui.SectionHeader
 import dev.kdroid.musicradio.ui.SettingBlock
 import dev.kdroid.musicradio.ui.SettingRow
 import musicradio.shared.generated.resources.Res
+import musicradio.shared.generated.resources.dialog_dismiss
 import musicradio.shared.generated.resources.language_system
 import musicradio.shared.generated.resources.settings_accent
 import musicradio.shared.generated.resources.settings_appearance
@@ -72,12 +76,31 @@ import musicradio.shared.generated.resources.startup_off
 import musicradio.shared.generated.resources.theme_dark
 import musicradio.shared.generated.resources.theme_light
 import musicradio.shared.generated.resources.theme_system
+import musicradio.shared.generated.resources.wake_log
+import musicradio.shared.generated.resources.wake_log_empty
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SettingsScreen(state: AppState, onIntent: (AppIntent) -> Unit, modifier: Modifier = Modifier) {
     val settings = state.data.settings
     var picking by remember { mutableStateOf<PickTarget?>(null) }
+    var showWakeLog by remember { mutableStateOf(false) }
+    if (showWakeLog) {
+        AlertDialog(
+            onDismissRequest = { showWakeLog = false },
+            title = { Text(stringResource(Res.string.wake_log)) },
+            text = {
+                Text(
+                    wakeEventLog().ifBlank { stringResource(Res.string.wake_log_empty) },
+                    modifier = Modifier.verticalScroll(rememberScrollState()),
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = { showWakeLog = false }) { Text(stringResource(Res.string.dialog_dismiss)) }
+            },
+        )
+    }
     picking?.let { target ->
         ChannelPickerDialog(
             onPick = { channelId ->
@@ -166,6 +189,7 @@ fun SettingsScreen(state: AppState, onIntent: (AppIntent) -> Unit, modifier: Mod
                     OutlinedButton(onClick = { picking = PickTarget.Wake }) {
                         Text(channelLabel(settings.wakeChannelId))
                     }
+                    TextButton(onClick = { showWakeLog = true }) { Text(stringResource(Res.string.wake_log)) }
                 }
             }
 

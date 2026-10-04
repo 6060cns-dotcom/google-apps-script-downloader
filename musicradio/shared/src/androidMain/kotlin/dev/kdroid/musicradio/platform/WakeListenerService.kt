@@ -50,13 +50,17 @@ internal class WakeListenerService : Service() {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action == Intent.ACTION_SCREEN_ON) onWake()
+            if (intent.action == Intent.ACTION_SCREEN_ON) {
+                WakeLog.add(context, "screen on")
+                onWake()
+            }
         }
     }
 
     override fun onCreate() {
         super.onCreate()
         bindAndroidContext(this)
+        WakeLog.add(this, "service started")
         showNotification(FileStore().load().settings.uiLanguage)
         // Connected now rather than at the first wake, so the player already knows whether the
         // app is playing when the screen comes on - a listener must not swap the station under
@@ -77,6 +81,7 @@ internal class WakeListenerService : Service() {
             return START_NOT_STICKY
         }
         if (intent?.getBooleanExtra(EXTRA_FROM_BOOT, false) == true) {
+            WakeLog.add(this, "started after boot")
             // The screen comes first: opening the app needs no network, so it does not wait for it.
             openApp()
             scope.launch { startAfterBoot() }
@@ -115,13 +120,14 @@ internal class WakeListenerService : Service() {
     private fun handleWake() {
         val now = SystemClock.elapsedRealtime()
         // The screen can flicker on twice in a row; one start is enough.
-        if (now - lastStartedAt < DEBOUNCE_MS) return
-        val player = player ?: return
-        if (player.status.value.active) return
+        if (now - lastStartedAt < DEBOUNCE_MS) return WakeLog.add(this, "skipped: just started")
+        val player = player ?: return WakeLog.add(this, "skipped: no player")
+        if (player.status.value.active) return WakeLog.add(this, "skipped: already playing")
         val data = FileStore().load()
-        val channelId = data.wakeChannelIdOrNull() ?: return
-        val station = Stations.stationOfChannel(channelId) ?: return
-        val channel = Stations.channel(channelId) ?: return
+        val channelId = data.wakeChannelIdOrNull() ?: return WakeLog.add(this, "skipped: no station chosen")
+        val station = Stations.stationOfChannel(channelId) ?: return WakeLog.add(this, "skipped: unknown station")
+        val channel = Stations.channel(channelId) ?: return WakeLog.add(this, "skipped: unknown channel")
+        WakeLog.add(this, "playing $channelId")
         lastStartedAt = now
         val settings = data.settings
         player.setVolume(if (settings.muted) 0 else settings.volume)
@@ -141,9 +147,11 @@ internal class WakeListenerService : Service() {
      * still plays and the screen is simply left as it is.
      */
     private fun openApp() {
-        if (!Settings.canDrawOverlays(this)) return
+        if (!Settings.canDrawOverlays(this)) return WakeLog.add(this, "app not opened: no overlay permission")
         val launch = packageManager.getLaunchIntentForPackage(packageName) ?: return
         runCatching { startActivity(launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
+            .onSuccess { WakeLog.add(this, "app opened") }
+            .onFailure { WakeLog.add(this, "app not opened: ${it.javaClass.simpleName}") }
     }
 
     private fun showNotification(language: UiLanguage) {
@@ -196,6 +204,11 @@ internal class WakeBootReceiver : BroadcastReceiver() {
             Intent.ACTION_BOOT_COMPLETED,
             "android.intent.action.QUICKBOOT_POWERON",
             "com.htc.intent.action.QUICKBOOT_POWERON",
+            // Android head units announce ignition and wake-up with their own broadcasts.
+            "autochips.intent.action.QB_POWERON",
+            "com.microntek.bootcheck",
+            "android.intent.action.ACC_ON",
+            "com.cayboy.action.ACC_ON",
         )
     }
 
@@ -203,7 +216,8 @@ internal class WakeBootReceiver : BroadcastReceiver() {
         val booted = intent.action in BOOT_ACTIONS
         if (!booted && intent.action != Intent.ACTION_MY_PACKAGE_REPLACED) return
         bindAndroidContext(context)
-        if (FileStore().load().wakeChannelIdOrNull() == null) return
+        WakeLog.add(context, "received ${intent.action}")
+        if (FileStore().load().wakeChannelIdOrNull() == null) return WakeLog.add(context, "ignored: play on wake is off")
         // Only a real boot plays; an app update just puts the listener back.
         val start = Intent(context, WakeListenerService::class.java).putExtra(EXTRA_FROM_BOOT, booted)
         runCatching { context.startForegroundService(start) }

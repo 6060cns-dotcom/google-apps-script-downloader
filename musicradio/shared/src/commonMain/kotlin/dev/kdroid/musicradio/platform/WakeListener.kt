@@ -8,3 +8,6 @@ internal expect fun syncWakeListener(enabled: Boolean)
 
 /** `true` where [syncWakeListener] actually does something, so the setting is only shown there. */
 internal expect val wakeListenerSupported: Boolean
+
+/** What the wake listener recently saw and did, one event per line; empty where there is none. */
+internal expect fun wakeEventLog(): String

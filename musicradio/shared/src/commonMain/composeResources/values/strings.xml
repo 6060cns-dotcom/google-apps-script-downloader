@@ -64,6 +64,8 @@
     <string name="picker_choose">Choose a station</string>
     <string name="picker_choose_channel">Choose a channel</string>
     <string name="picker_back">Back to stations</string>
+    <string name="wake_log">Wake log</string>
+    <string name="wake_log_empty">Nothing recorded yet. Turn the screen off and on, or restart the device.</string>
     <string name="settings_data">Data</string>
     <string name="settings_reset">Reset the app</string>
     <string name="settings_reset_desc">Clear favorites and every setting, back to a first launch.</string>

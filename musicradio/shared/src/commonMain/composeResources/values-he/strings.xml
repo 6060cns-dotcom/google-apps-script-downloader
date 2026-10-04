@@ -64,6 +64,8 @@
     <string name="picker_choose">בחירת תחנה</string>
     <string name="picker_choose_channel">בחירת ערוץ</string>
     <string name="picker_back">חזרה לתחנות</string>
+    <string name="wake_log">יומן התעוררות</string>
+    <string name="wake_log_empty">עדיין לא נרשם דבר. כבו והדליקו את המסך, או הפעילו מחדש את המכשיר.</string>
     <string name="settings_data">נתונים</string>
     <string name="settings_reset">איפוס התוכנה</string>
     <string name="settings_reset_desc">מחיקת המועדפים וכל ההגדרות, חזרה למצב של הפעלה ראשונה.</string>
