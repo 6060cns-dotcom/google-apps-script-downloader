@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">מיוזיק רדיו</string>
+    <string name="app_tagline">רדיו יהודי בהזרמה, על השולחן ובכיס.</string>
+
+    <!-- Navigation -->
+    <string name="nav_stations">תחנות</string>
+    <string name="nav_favorites">מועדפים</string>
+    <string name="nav_settings">הגדרות</string>
+    <string name="nav_about">אודות</string>
+
+    <!-- Player -->
+    <string name="player_play">נגן</string>
+    <string name="player_pause">השהה</string>
+    <string name="player_stop">עצור</string>
+    <string name="player_next">התחנה הבאה</string>
+    <string name="player_previous">התחנה הקודמת</string>
+    <string name="player_mute">השתק</string>
+    <string name="player_unmute">בטל השתקה</string>
+    <string name="player_volume">עוצמה</string>
+    <string name="player_back">חזרה</string>
+    <string name="player_channel">ערוץ</string>
+    <string name="player_nothing">בחרו תחנה כדי להתחיל להאזין</string>
+    <string name="player_buffering">טוען…</string>
+    <string name="player_live">שידור חי</string>
+    <string name="player_paused">מושהה</string>
+
+    <!-- Stations -->
+    <string name="stations_search">חיפוש תחנות</string>
+    <string name="view_stations">קיבוץ לפי תחנה</string>
+    <string name="view_streams">כל זרם בנפרד</string>
+    <string name="stations_empty">אין תחנה שמתאימה לחיפוש</string>
+    <string name="stations_count">%1$d תחנות</string>
+    <string name="category_all">הכל</string>
+    <string name="category_music">מוזיקה</string>
+    <string name="category_torah">תורה</string>
+    <string name="category_news">חדשות</string>
+
+    <!-- Favorites -->
+    <string name="favorite_add">הוספה למועדפים</string>
+    <string name="favorite_remove">הסרה מהמועדפים</string>
+    <string name="favorites_empty">אין עדיין מועדפים. סמנו תחנה בכוכב כדי לשמור אותה כאן.</string>
+
+    <!-- Settings -->
+    <string name="settings_appearance">מראה</string>
+    <string name="settings_theme">ערכת נושא</string>
+    <string name="theme_system">לפי המערכת</string>
+    <string name="theme_light">בהיר</string>
+    <string name="theme_dark">כהה</string>
+    <string name="settings_accent">צבע הדגשה</string>
+    <string name="settings_language">שפת הממשק</string>
+    <string name="language_system">לפי המערכת</string>
+    <string name="settings_playback">נגינה</string>
+    <string name="settings_show_news">הצגת תחנות חדשות</string>
+    <string name="settings_show_news_desc">הסתרת ערוצי דיבור וחדשות כדי להשאיר ברשימה מוזיקה ותורה בלבד.</string>
+    <string name="settings_startup">בעת פתיחת האפליקציה</string>
+    <string name="settings_startup_desc">מה יתנגן מעצמו ברגע שהאפליקציה נפתחת.</string>
+    <string name="startup_off">כלום</string>
+    <string name="startup_last">התחנה האחרונה</string>
+    <string name="startup_chosen">תחנה שבחרתי</string>
+    <string name="settings_wake">הפעלה בהתעוררות ובאתחול</string>
+    <string name="settings_wake_desc">הדלקת תחנה בכל פעם שהמכשיר מתעורר ממצב שינה או נדלק, ופתיחת האפליקציה. מחייב התראה קטנה קבועה.</string>
+    <string name="picker_none">לא נבחרה</string>
+    <string name="picker_choose">בחירת תחנה</string>
+    <string name="picker_choose_channel">בחירת ערוץ</string>
+    <string name="picker_back">חזרה לתחנות</string>
+    <string name="wake_log">יומן התעוררות</string>
+    <string name="wake_log_empty">עדיין לא נרשם דבר. כבו והדליקו את המסך, או הפעילו מחדש את המכשיר.</string>
+    <string name="settings_data">נתונים</string>
+    <string name="settings_reset">איפוס התוכנה</string>
+    <string name="settings_reset_desc">מחיקת המועדפים וכל ההגדרות, חזרה למצב של הפעלה ראשונה.</string>
+    <string name="settings_reset_confirm">לאפס את כל ההגדרות ולמחוק את כל המועדפים?</string>
+
+    <!-- About -->
+    <string name="about_version">גרסה %1$s</string>
+    <string name="about_licenses">רישיונות קוד פתוח</string>
+    <string name="about_credit">נבנה על ידי %1$s</string>
+    <string name="about_repo">קוד המקור ב-%1$s</string>
+    <string name="about_original">נכתב מחדש מתוך %1$s מאת %2$s.</string>
+
+    <!-- Dialogs and messages -->
+    <string name="dialog_confirm">אישור</string>
+    <string name="dialog_cancel">ביטול</string>
+    <string name="dialog_dismiss">סגירה</string>
+    <string name="error_stream">שגיאה בעת קריאת הזרם: לא ניתן לטעון את התוכן.</string>
+    <string name="message_reset_done">כל ההגדרות אופסו.</string>
+
+    <!-- Station names -->
+    <string name="station_beshiour_hay">בשיעור חי</string>
+    <string name="station_kol_hahalakha">קול ההלכה</string>
+    <string name="station_kol_barama">קול ברמה</string>
+    <string name="station_kol_hay">קול חי</string>
+    <string name="station_kol_play">קול פליי</string>
+    <string name="station_kol_hay_music">קול חי מיוזיק</string>
+    <string name="station_yiddish24">אידיש 24</string>
+    <string name="station_jewish_radio_network">Jewish Radio Network</string>
+    <string name="station_jewish_music_stream">Jewish Music Stream</string>
+    <string name="station_kol_simha">קול שמחה</string>
+    <string name="station_makelet_shira">מקהלת שירה 24</string>
+    <string name="station_toker_fm">טוקר FM</string>
+    <string name="station_chabad_org">Chabad.org ניגוני חב״ד</string>
+    <string name="station_lakewood_scoop">The Lakewood Scoop</string>
+    <string name="update_available">גרסה חדשה מוכנה להתקנה</string>
+    <string name="update_restart_title">הפעלה מחדש לעדכון</string>
+    <string name="update_restart_body">העדכון ירד למחשב. מיוזיק רדיו יופעל מחדש כדי להתקין אותו, וההשמעה תיפסק לרגע. אפשר גם פשוט לסגור את התוכנה - העדכון יותקן ביציאה.</string>
+    <string name="update_restart_now">להפעיל מחדש</string>
+</resources>

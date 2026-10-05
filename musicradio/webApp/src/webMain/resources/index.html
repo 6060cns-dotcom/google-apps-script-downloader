@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4C5BD4">
+    <title>Music Radio</title>
+    <link rel="icon" href="icons/icon-192x192.png">
+    <link rel="manifest" href="manifest.json">
+    <link type="text/css" rel="stylesheet" href="styles.css">
+    <script>
+        // Compose Locale.current / getString() read navigator.languages and
+        // navigator.language. There is no public override, so we swap the
+        // getters when the app sets window.__customLocale.
+        (function () {
+            var languages = Object.getOwnPropertyDescriptor(Navigator.prototype, "languages");
+            var language = Object.getOwnPropertyDescriptor(Navigator.prototype, "language");
+            Object.defineProperty(Navigator.prototype, "languages", Object.assign({}, languages, {
+                get: function () {
+                    return window.__customLocale ? [window.__customLocale] : languages.get.apply(this);
+                }
+            }));
+            Object.defineProperty(Navigator.prototype, "language", Object.assign({}, language, {
+                get: function () {
+                    return window.__customLocale || language.get.apply(this);
+                }
+            }));
+        })();
+    </script>
+    <script type="application/javascript" src="registerServiceWorker.js"></script>
+</head>
+<body>
+    <div id="wasm_loader" class="is-indeterminate" aria-live="polite" aria-busy="true">
+        <img class="loader-logo" src="icons/icon-192x192.png" width="112" height="112" alt="Music Radio">
+        <div class="loader-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="wasm_progress_fill"></div>
+        </div>
+        <p id="wasm_status">טוען…</p>
+    </div>
+    <script src="wasm_sizes.js"></script>
+    <script src="wasm_loader.js"></script>
+    <script type="application/javascript" src="webApp.js"></script>
+</body>
+</html>
