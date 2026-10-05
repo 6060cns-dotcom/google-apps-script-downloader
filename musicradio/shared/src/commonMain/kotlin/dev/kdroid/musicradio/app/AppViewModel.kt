@@ -48,6 +48,13 @@ import kotlinx.coroutines.launch
 /** Tracks run minutes, and each poll costs a real (if small) read off the stream. */
 private const val METADATA_POLL_MS = 20_000L
 
+/** A start at launch is checked every 3 seconds, for about 40 seconds, and reopened if it did not take. */
+private const val LAUNCH_RETRY_MS = 3_000L
+private const val LAUNCH_ATTEMPTS = 13
+
+/** A stream still buffering after this many checks counts as stuck, not slow. */
+private const val BUFFERING_BEFORE_RETRY = 2
+
 @AssistedInject
 class AppViewModel(
     private val store: AppStore,
@@ -91,6 +98,11 @@ class AppViewModel(
         watchNowPlaying()
         syncWakeListener(_state.value.data.settings.playOnWake)
         startOnLaunch()
+        scope.launch {
+            LaunchSignal.events.collect {
+                if (!_state.value.playback.status.active) startOnLaunch()
+            }
+        }
     }
 
     /** Plays what the startup setting asks for, going through [start] so the UI shows it too. */
@@ -98,6 +110,40 @@ class AppViewModel(
         val channelId = _state.value.data.launchChannelId() ?: return
         val station = Stations.stationOfChannel(channelId) ?: return
         start(station, channelId)
+        watchLaunchStart(channelId)
+    }
+
+    /**
+     * A device that has only just woken or booted often has no network yet, so the first attempt
+     * to open the stream fails or hangs. Look again every few seconds and open it once more
+     * instead of leaving the user with a spinner or an error.
+     */
+    private fun watchLaunchStart(channelId: String) {
+        scope.launch {
+            var buffering = 0
+            repeat(LAUNCH_ATTEMPTS) {
+                delay(LAUNCH_RETRY_MS)
+                val playback = _state.value.playback
+                // The user picked something else, paused or stopped: this start is no longer theirs.
+                if (playback.channelId != channelId) return@launch
+                when (playback.status) {
+                    PlaybackStatus.Playing, PlaybackStatus.Paused, PlaybackStatus.Idle -> return@launch
+
+                    PlaybackStatus.Error -> reopen(channelId)
+
+                    PlaybackStatus.Buffering -> if (++buffering >= BUFFERING_BEFORE_RETRY) {
+                        buffering = 0
+                        reopen(channelId)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun reopen(channelId: String) {
+        val channel = Stations.channel(channelId) ?: return
+        player.play(channel.streamUrl)
+        mutate { it.copy(playback = it.playback.copy(status = PlaybackStatus.Buffering), message = null) }
     }
 
     override fun onCleared() {

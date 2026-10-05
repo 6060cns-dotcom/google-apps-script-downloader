@@ -2,6 +2,7 @@ package co.abaye.musicradio
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.os.Build
@@ -15,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowInsetsControllerCompat
 import dev.kdroid.musicradio.App
+import dev.kdroid.musicradio.app.LaunchSignal
 import dev.kdroid.musicradio.platform.bindAndroidContext
 
 class AppActivity : ComponentActivity() {
@@ -23,6 +25,13 @@ class AppActivity : ComponentActivity() {
     // silently withholds the media notification the lock screen controls hang off.
     private val notificationPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
+
+    // The activity is single-instance, so a launcher or head-unit wake-up task that starts it again
+    // while the process lives lands here and not in onCreate. Tell the app, which treats it as a launch.
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        LaunchSignal.emit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

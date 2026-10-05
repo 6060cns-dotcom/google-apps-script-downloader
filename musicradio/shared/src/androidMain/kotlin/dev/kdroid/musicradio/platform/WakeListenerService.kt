@@ -20,6 +20,7 @@ import dev.kdroid.musicradio.domain.Stations
 import dev.kdroid.musicradio.domain.UiLanguage
 import dev.kdroid.musicradio.domain.wakeChannelIdOrNull
 import dev.kdroid.musicradio.player.MediaSessionRadioPlayer
+import dev.kdroid.musicradio.player.PlaybackStatus
 import io.github.santimattius.structured.annotations.StructuredScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +53,7 @@ internal class WakeListenerService : Service() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == Intent.ACTION_SCREEN_ON) {
                 WakeLog.add(context, "screen on")
-                onWake()
+                scope.launch { startWithRetry(0) }
             }
         }
     }
@@ -84,22 +85,29 @@ internal class WakeListenerService : Service() {
             WakeLog.add(this, "started after boot")
             // The screen comes first: opening the app needs no network, so it does not wait for it.
             openApp()
-            scope.launch { startAfterBoot() }
+            scope.launch { startWithRetry(BOOT_DELAY_MS) }
         }
         return START_STICKY
     }
 
     /**
-     * A device that has just booted has no network for a few seconds, and a stream opened before
-     * that fails. So wait a moment, then start, and look again a few times: a station that did not
-     * take is started once more rather than left spinning.
+     * A device that has just woken or booted has no network for a few seconds, and a stream opened
+     * before that fails. So start, then look again every few seconds and open it once more if it
+     * did not take, rather than leaving the user with silence.
      */
-    private suspend fun startAfterBoot() {
-        delay(BOOT_DELAY_MS)
-        repeat(BOOT_ATTEMPTS) {
-            onWake()
-            delay(BOOT_RETRY_MS)
-            if (player?.status?.value?.active == true) return
+    private suspend fun startWithRetry(initialDelayMs: Long) {
+        delay(initialDelayMs)
+        onWake()
+        repeat(RETRY_ATTEMPTS) {
+            delay(RETRY_MS)
+            when (player?.status?.value) {
+                PlaybackStatus.Playing, PlaybackStatus.Paused -> return
+                PlaybackStatus.Error, PlaybackStatus.Idle, null -> {
+                    WakeLog.add(this, "retrying")
+                    runCatching { handleWake(force = true) }.onFailure { Log.e(TAG, "retry failed", it) }
+                }
+                PlaybackStatus.Buffering -> Unit
+            }
         }
     }
 
@@ -117,12 +125,14 @@ internal class WakeListenerService : Service() {
         runCatching { handleWake() }.onFailure { Log.e(TAG, "wake start failed", it) }
     }
 
-    private fun handleWake() {
+    private fun handleWake(force: Boolean = false) {
         val now = SystemClock.elapsedRealtime()
-        // The screen can flicker on twice in a row; one start is enough.
-        if (now - lastStartedAt < DEBOUNCE_MS) return WakeLog.add(this, "skipped: just started")
         val player = player ?: return WakeLog.add(this, "skipped: no player")
-        if (player.status.value.active) return WakeLog.add(this, "skipped: already playing")
+        if (!force) {
+            // The screen can flicker on twice in a row; one start is enough.
+            if (now - lastStartedAt < DEBOUNCE_MS) return WakeLog.add(this, "skipped: just started")
+            if (player.status.value.active) return WakeLog.add(this, "skipped: already playing")
+        }
         val data = FileStore().load()
         val channelId = data.wakeChannelIdOrNull() ?: return WakeLog.add(this, "skipped: no station chosen")
         val station = Stations.stationOfChannel(channelId) ?: return WakeLog.add(this, "skipped: unknown station")
@@ -188,8 +198,8 @@ internal class WakeListenerService : Service() {
         const val NOTIFICATION_ID = 2
         const val DEBOUNCE_MS = 10_000L
         const val BOOT_DELAY_MS = 3_000L
-        const val BOOT_RETRY_MS = 12_000L
-        const val BOOT_ATTEMPTS = 4
+        const val RETRY_MS = 3_000L
+        const val RETRY_ATTEMPTS = 10
     }
 }
 
